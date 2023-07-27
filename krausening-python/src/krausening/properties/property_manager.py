@@ -173,6 +173,8 @@ class Properties(JavaProperties):
         return self.getProperty(key)
 
     def getProperty(self, key: str, defaultValue: Optional[T] = None):
+        if key in os.environ:
+            return os.environ[key]
         try:
             return os.path.expandvars(self.data[key])
         except KeyError:
